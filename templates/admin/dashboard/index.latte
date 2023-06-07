@@ -1,1 +1,4 @@
-{user()->getEmail()}
+{layout '../base.latte'}
+
+{block content}
+<p>{user()->getEmail()}</p>

@@ -3,6 +3,7 @@
 namespace App\Core\Security\Authentication;
 
 use App\Core\Entity\User;
+use App\Core\Http\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Authenticator implements AuthenticatorInterface
@@ -11,6 +12,7 @@ class Authenticator implements AuthenticatorInterface
     private ?User $user = null;
 
     public function __construct(
+        private readonly Session $session,
         private readonly EntityManagerInterface $entityManager
     )
     {
@@ -22,13 +24,15 @@ class Authenticator implements AuthenticatorInterface
             return $this->user;
         }
 
-        $userId = $_SESSION['userId'];
+        $userId = $this->session->get('userId');
 
         if (!$userId) {
             return null;
         }
 
-        $user = $this->entityManager->getRepository(User::class)->find($userId);
+        $user = $this->entityManager
+            ->getRepository(User::class)
+            ->find($userId);
 
         if (!$user) {
             return null;
@@ -41,9 +45,11 @@ class Authenticator implements AuthenticatorInterface
 
     public function login(string $email, string $password): bool
     {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy([
-            'email' => $email
-        ]);
+        $user = $this->entityManager
+            ->getRepository(User::class
+            )->findOneBy([
+                'email' => $email
+            ]);
 
         if (!$user){
             return false;
@@ -53,7 +59,7 @@ class Authenticator implements AuthenticatorInterface
             return false;
         }
 
-        $_SESSION['userId'] = $user->getId();
+        $this->session->set('userId', $user->getId());
 
         return true;
     }
