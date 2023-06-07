@@ -14,7 +14,6 @@ class Authenticator implements AuthenticatorInterface
         private readonly EntityManagerInterface $entityManager
     )
     {
-
     }
 
     public function getUser() : ?User
@@ -40,8 +39,22 @@ class Authenticator implements AuthenticatorInterface
         return $user;
     }
 
-    public function login()
+    public function login(string $email, string $password): bool
     {
-        
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([
+            'email' => $email
+        ]);
+
+        if (!$user){
+            return false;
+        }
+
+        if (!password_verify($password, $user->getPassword())) {
+            return false;
+        }
+
+        $_SESSION['userId'] = $user->getId();
+
+        return true;
     }
 }

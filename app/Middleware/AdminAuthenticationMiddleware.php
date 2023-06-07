@@ -28,7 +28,9 @@ class AdminAuthenticationMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($user = $this->authenticator->getUser()) {
+        $user = $this->authenticator->getUser();
+
+        if ($user && $user->isAdmin()) {
             $this->engine->addFunction('user', fn() => $user);
 
             return $handler->handle($request->withAttribute('user', $user));

@@ -70,4 +70,9 @@ class User
         $this->role = $role;
         return $this;
     }
+
+    public function isAdmin(): bool
+    {
+        return strtoupper($this->role) === 'ADMIN';
+    }
 }

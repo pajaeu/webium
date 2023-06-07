@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\Admin\AuthController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Front\HomeController;
 use App\Middleware\AdminAuthenticationMiddleware;
@@ -14,4 +15,7 @@ return function (App $app) {
     $app->group('/admin', function (RouteCollectorProxy $collection) {
         $collection->get('', [DashboardController::class, 'index']);
     })->add(AdminAuthenticationMiddleware::class);
+
+    $app->get('/login', [AuthController::class, 'login']);
+    $app->post('/login', [AuthController::class, 'login']);
 };

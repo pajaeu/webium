@@ -6,5 +6,5 @@ interface AuthenticatorInterface
 {
     public function getUser();
 
-    public function login();
+    public function login(string $email, string $password);
 }
