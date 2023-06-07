@@ -2,10 +2,10 @@
 .DS_STORE
 .env
 /node_modules/
- /public/build/
+/public/build/
 /vendor/
 /logs/*
-/temp/*
+/temp/
 package-lock.json
 composer.phar
 composer.lock
