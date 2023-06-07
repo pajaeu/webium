@@ -2,5 +2,6 @@
 .DS_STORE
 /vendor/
 /logs/*
+/temp/*
 composer.phar
 composer.lock

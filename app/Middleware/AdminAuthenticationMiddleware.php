@@ -2,8 +2,7 @@
 
 namespace App\Middleware;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Core\Security\Authentication\Authenticator;
 use Latte\Engine;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,9 +14,9 @@ class AdminAuthenticationMiddleware implements MiddlewareInterface
 {
 
     public function __construct(
-        private readonly Engine $engine,
+        private readonly Authenticator $authenticator,
         private readonly ResponseFactoryInterface $responseFactory,
-        private readonly EntityManagerInterface $entityManager
+        private readonly Engine $engine,
     )
     {
     }
@@ -29,9 +28,7 @@ class AdminAuthenticationMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (!empty($_SESSION['userId'])) {
-            $user = $this->entityManager->getRepository(User::class)->find($_SESSION['userId']);
-
+        if ($user = $this->authenticator->getUser()) {
             $this->engine->addFunction('user', fn() => $user);
 
             return $handler->handle($request->withAttribute('user', $user));
