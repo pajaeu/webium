@@ -1,7 +1,10 @@
 .idea/
 .DS_STORE
+/node_modules/
+ /public/build/
 /vendor/
 /logs/*
 /temp/*
+package-lock.json
 composer.phar
 composer.lock
