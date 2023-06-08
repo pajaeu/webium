@@ -1,0 +1,25 @@
+{extends '../layout.latte'}
+
+{block title}
+{/block}
+
+{block head}
+{/block}
+
+{block body}
+    <header class="header">
+        <div class="container">
+            <div class="d-flex">
+                <a href="" class="logo">LOGO</a>
+            </div>
+        </div>
+    </header>
+    <main>{include content}</main>
+    <footer class="footer">
+        <div class="container"></div>
+    </footer>
+{/block}
+
+{block scripts}
+    <script src="/dist/front.bundle.js"></script>
+{/block}

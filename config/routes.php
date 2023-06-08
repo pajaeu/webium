@@ -16,6 +16,6 @@ return function (App $app) {
         $collection->get('', [DashboardController::class, 'index']);
     })->add(AdminAuthenticationMiddleware::class);
 
-    $app->get('/login', [AuthController::class, 'login']);
-    $app->post('/login', [AuthController::class, 'login']);
+    $app->get('/admin/login', [AuthController::class, 'login']);
+    $app->post('/admin/login', [AuthController::class, 'login']);
 };

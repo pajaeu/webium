@@ -1,10 +1,14 @@
 const path = require('path');
 
 module.exports = {
-    entry: './assets/js/app.js',
+    entry: {
+        front: './assets/js/front.js',
+        admin: './assets/js/admin.js'
+    },
     output: {
-        path: __dirname + '/public/build',
-        filename: 'bundle.js',
+        path: __dirname + '/public/dist',
+        publicPath: '/dist/',
+        filename: '[name].bundle.js',
     },
     module: {
         rules: [

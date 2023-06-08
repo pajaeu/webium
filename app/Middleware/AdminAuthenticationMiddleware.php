@@ -36,6 +36,6 @@ class AdminAuthenticationMiddleware implements MiddlewareInterface
             return $handler->handle($request->withAttribute('user', $user));
         }
 
-        return $this->responseFactory->createResponse(302)->withHeader('Location', '/');
+        return $this->responseFactory->createResponse(302)->withHeader('Location', '/admin/login');
     }
 }

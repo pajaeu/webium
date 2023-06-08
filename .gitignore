@@ -2,7 +2,7 @@
 .DS_STORE
 .env
 /node_modules/
-/public/build/
+/public/dist/
 /vendor/
 /logs/*
 /temp/
